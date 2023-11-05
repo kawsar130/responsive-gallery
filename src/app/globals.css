@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .btn {
+    @apply border-none px-5 py-2 text-gray-100 rounded-lg font-bold uppercase;
+  }
+
+  .btn-primary {
+    @apply btn bg-gradient-to-b from-primary-light from-0% to-primary-lighter to-100% hover:bg-gradient-to-b hover:from-primary hover:to-primary-light hover:text-white;
+  }
+
+  .btn-secondary {
+    @apply btn bg-gradient-to-b from-secondary-light from-0% to-secondary to-100%  hover:bg-gradient-to-b hover:from-secondary hover:to-secondary-dark;
+  }
+}
