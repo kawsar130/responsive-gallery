@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import React, { forwardRef } from 'react';
 
 const Item = forwardRef(
@@ -5,9 +6,7 @@ const Item = forwardRef(
     const inlineStyles = {
       opacity: withOpacity ? '0.5' : '1',
       transformOrigin: '50% 50%',
-      height: '140px',
-      width: '140px',
-      borderRadius: '10px',
+      borderRadius: '20px',
       cursor: isDragging ? 'grabbing' : 'grab',
       backgroundColor: '#ffffff',
       display: 'flex',
@@ -21,8 +20,13 @@ const Item = forwardRef(
     };
 
     return (
-      <div ref={ref} style={inlineStyles} {...props}>
-        {id}
+      <div
+        ref={ref}
+        style={inlineStyles}
+        {...props}
+        className="w-60 h-60 relative border-2 shadow bg-gray-200 rounded-xl overflow-hidden"
+      >
+        <Image src={props.item?.image} alt="image" fill />
       </div>
     );
   }

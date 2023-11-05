@@ -1,16 +1,23 @@
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import Image from 'next/image';
+import Item from './Items';
 
-const SortableItem = ({ item }) => {
-  const { attributes, listeners, setNodeRef, transform, transition } =
-    useSortable({
-      id: item.id,
-      transition: {
-        duration: 500,
-        easing: 'cubic-bezier(0.25, 1, 0.5, 1)'
-      }
-    });
+const SortableItem = (props) => {
+  const {
+    attributes,
+    isDragging,
+    listeners,
+    setNodeRef,
+    transform,
+    transition
+  } = useSortable({
+    id: props.item.id,
+    transition: {
+      duration: 500,
+      easing: 'cubic-bezier(0.25, 1, 0.5, 1)'
+    }
+  });
 
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -18,15 +25,14 @@ const SortableItem = ({ item }) => {
   };
 
   return (
-    <div
+    <Item
       ref={setNodeRef}
       style={style}
+      withOpacity={isDragging}
       {...attributes}
       {...listeners}
-      className="w-60 h-60 relative border-2 shadow bg-gray-200 rounded-xl"
-    >
-      <Image src={item?.image} alt="image" fill />
-    </div>
+      {...props}
+    />
   );
 };
 export default SortableItem;

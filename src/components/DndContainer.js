@@ -68,7 +68,13 @@ const DndContainer = () => {
       </SortableContext>
 
       <DragOverlay adjustScale style={{ transformOrigin: '0 0' }}>
-        {activeId ? <Item id={activeId} isDragging /> : null}
+        {activeId ? (
+          <Item
+            id={activeId}
+            item={items.find((item) => item.id === activeId)}
+            isDragging
+          />
+        ) : null}
       </DragOverlay>
     </DndContext>
   );
