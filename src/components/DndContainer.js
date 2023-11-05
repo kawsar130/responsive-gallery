@@ -20,7 +20,7 @@ import {
 import SortableItem from './SortableItem';
 import { image_data } from '@/data/image_data';
 import Grid from './Grid';
-import Item from './Items';
+import Item from './Item';
 
 const DndContainer = () => {
   const [items, setItems] = useState([...image_data]);
@@ -60,9 +60,9 @@ const DndContainer = () => {
       onDragCancel={handleDragCancel}
     >
       <SortableContext items={items} strategy={rectSortingStrategy}>
-        <Grid columns={5}>
-          {items.map((item) => (
-            <SortableItem key={item.id} item={item} />
+        <Grid>
+          {items.map((item, index) => (
+            <SortableItem key={item.id} item={item} index={index} />
           ))}
         </Grid>
       </SortableContext>

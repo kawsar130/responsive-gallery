@@ -2,7 +2,7 @@ import Image from 'next/image';
 import React, { forwardRef } from 'react';
 
 const Item = forwardRef(
-  ({ id, withOpacity, isDragging, style, ...props }, ref) => {
+  ({ id, withOpacity, isDragging, style, index, ...props }, ref) => {
     const inlineStyles = {
       opacity: withOpacity ? '0.5' : '1',
       transformOrigin: '50% 50%',
@@ -15,7 +15,7 @@ const Item = forwardRef(
       boxShadow: isDragging
         ? 'rgb(63 63 68 / 5%) 0px 2px 0px 2px, rgb(34 33 81 / 15%) 0px 2px 3px 2px'
         : 'rgb(63 63 68 / 5%) 0px 0px 0px 1px, rgb(34 33 81 / 15%) 0px 1px 3px 0px',
-      transform: isDragging ? 'scale(1.05)' : 'scale(1)',
+      // transform: isDragging ? 'scale(1.05)' : 'scale(1)',
       ...style
     };
 
@@ -24,9 +24,18 @@ const Item = forwardRef(
         ref={ref}
         style={inlineStyles}
         {...props}
-        className="w-60 h-60 relative border-2 shadow bg-gray-200 rounded-xl overflow-hidden"
+        className={`shadow-lg rounded-xl overflow-hidden ${
+          index === 0 && 'col-span-2 row-span-2'
+        }`}
       >
-        <Image src={props.item?.image} alt="image" fill />
+        <Image
+          src={props.item?.image}
+          sizes="500px"
+          alt="image"
+          width={index === 0 ? 400 : 200}
+          height={index === 0 ? 400 : 200}
+          style={{ borderRadius: '20px' }}
+        />
       </div>
     );
   }
