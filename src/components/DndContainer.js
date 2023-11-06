@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState } from 'react';
 import {
   DndContext,
   closestCenter,
@@ -16,10 +16,10 @@ import {
 } from '@dnd-kit/sortable';
 
 import SortableItem from './SortableItem';
-import { image_data } from '@/data/image_data';
-import Grid from './Grid';
+import PhotoContainer from './PhotoContainer';
 import Item from './Item';
 
+// Importing photos data
 import photos from '../data/image_data.json';
 
 const DndContainer = () => {
@@ -49,6 +49,7 @@ const DndContainer = () => {
     setActiveId(null);
   };
 
+  // When dragging is cancelled by escape key press or any other event
   const handleDragCancel = (event) => {
     setActiveId(null);
   };
@@ -63,11 +64,11 @@ const DndContainer = () => {
     >
       <SortableContext items={items} strategy={rectSortingStrategy}>
         {/* Items container */}
-        <Grid>
+        <PhotoContainer>
           {items.map((item, index) => (
             <SortableItem key={item.id} item={item} index={index} />
           ))}
-        </Grid>
+        </PhotoContainer>
       </SortableContext>
 
       {/* Drag overlay when dragging item */}

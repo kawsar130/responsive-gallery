@@ -3,20 +3,14 @@ import { CSS } from '@dnd-kit/utilities';
 import Item from './Item';
 
 const SortableItem = (props) => {
-  const {
-    attributes,
-    isDragging,
-    listeners,
-    setNodeRef,
-    transform,
-    transition
-  } = useSortable({
-    id: props.item.id,
-    transition: {
-      duration: 500,
-      easing: 'cubic-bezier(0.25, 1, 0.5, 1)'
-    }
-  });
+  const { attributes, listeners, setNodeRef, transform, transition } =
+    useSortable({
+      id: props.item.id,
+      transition: {
+        duration: 500,
+        easing: 'cubic-bezier(0.25, 1, 0.5, 1)'
+      }
+    });
 
   const style = {
     transform: CSS.Transform.toString(transform),
