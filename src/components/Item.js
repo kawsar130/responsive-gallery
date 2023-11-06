@@ -1,45 +1,30 @@
 import Image from 'next/image';
 import React, { forwardRef } from 'react';
 
-const Item = forwardRef(
-  ({ id, withOpacity, isDragging, style, index, ...props }, ref) => {
-    const inlineStyles = {
-      opacity: withOpacity ? '0.5' : '1',
-      transformOrigin: '50% 50%',
-      borderRadius: '20px',
-      cursor: isDragging ? 'grabbing' : 'grab',
-      backgroundColor: '#ffffff',
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      boxShadow: isDragging
-        ? 'rgb(63 63 68 / 5%) 0px 2px 0px 2px, rgb(34 33 81 / 15%) 0px 2px 3px 2px'
-        : 'rgb(63 63 68 / 5%) 0px 0px 0px 1px, rgb(34 33 81 / 15%) 0px 1px 3px 0px',
-      // transform: isDragging ? 'scale(1.05)' : 'scale(1)',
-      ...style
-    };
+const Item = forwardRef(({ id, style, index, faded, ...props }, ref) => {
+  const inlineStyles = {
+    opacity: faded ? '0.2' : '1',
+    transformOrigin: '0 0',
+    gridRowStart: index === 0 ? 'span 2' : null,
+    gridColumnStart: index === 0 ? 'span 2' : null,
+    backgroundImage: `url("${props.item.image}")`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    backgroundColor: 'grey',
+    ...style
+  };
 
-    return (
-      <div
-        ref={ref}
-        style={inlineStyles}
-        {...props}
-        className={`shadow-lg rounded-xl overflow-hidden ${
-          index === 0 && 'col-span-2 row-span-2'
-        }`}
-      >
-        <Image
-          src={props.item?.image}
-          sizes="500px"
-          alt="image"
-          width={index === 0 ? 400 : 200}
-          height={index === 0 ? 400 : 200}
-          style={{ borderRadius: '20px' }}
-        />
-      </div>
-    );
-  }
-);
+  return (
+    <div
+      ref={ref}
+      style={inlineStyles}
+      {...props}
+      className={`${
+        index === 0 ? 'w-96 h-96' : 'w-44 h-44'
+      } border-2 rounded-2xl shadow`}
+    />
+  );
+});
 
 Item.displayName = 'Item';
 

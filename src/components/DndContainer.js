@@ -6,9 +6,7 @@ import {
   TouchSensor,
   DragOverlay,
   useSensor,
-  useSensors,
-  DragStartEvent,
-  DragEndEvent
+  useSensors
 } from '@dnd-kit/core';
 
 import {
@@ -22,17 +20,21 @@ import { image_data } from '@/data/image_data';
 import Grid from './Grid';
 import Item from './Item';
 
+import photos from '../data/image_data.json';
+
 const DndContainer = () => {
-  const [items, setItems] = useState([...image_data]);
+  const [items, setItems] = useState(photos); // Items to show in the container
   const [activeId, setActiveId] = useState(null);
 
-  const sensors = useSensors(useSensor(MouseSensor), useSensor(TouchSensor));
+  const sensors = useSensors(useSensor(MouseSensor), useSensor(TouchSensor)); // defining which sensors to use for Mouse and Touch devices
 
-  const handleDragStart = useCallback((event) => {
+  // setting active ID when drag is being used
+  const handleDragStart = (event) => {
     setActiveId(event.active.id);
-  }, []);
+  };
 
-  const handleDragEnd = useCallback((event) => {
+  // actions when drag ends
+  const handleDragEnd = (event) => {
     const { active, over } = event;
 
     if (active.id !== over.id) {
@@ -45,11 +47,11 @@ const DndContainer = () => {
     }
 
     setActiveId(null);
-  }, []);
+  };
 
-  const handleDragCancel = useCallback(() => {
+  const handleDragCancel = (event) => {
     setActiveId(null);
-  }, []);
+  };
 
   return (
     <DndContext
@@ -60,6 +62,7 @@ const DndContainer = () => {
       onDragCancel={handleDragCancel}
     >
       <SortableContext items={items} strategy={rectSortingStrategy}>
+        {/* Items container */}
         <Grid>
           {items.map((item, index) => (
             <SortableItem key={item.id} item={item} index={index} />
@@ -67,12 +70,12 @@ const DndContainer = () => {
         </Grid>
       </SortableContext>
 
-      <DragOverlay adjustScale style={{ transformOrigin: '0 0' }}>
+      {/* Drag overlay when dragging item */}
+      <DragOverlay adjustScale={true}>
         {activeId ? (
           <Item
             id={activeId}
             item={items.find((item) => item.id === activeId)}
-            isDragging
           />
         ) : null}
       </DragOverlay>
